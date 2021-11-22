@@ -1,18 +1,14 @@
 package com.obstacleavoid.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.obstacleavoid.assets.AssetDescriptors;
-import com.obstacleavoid.assets.AssetPaths;
+import com.obstacleavoid.assets.RegionNames;
 import com.obstacleavoid.config.GameConfig;
 import com.obstacleavoid.entity.Background;
 import com.obstacleavoid.entity.Obstacle;
@@ -20,8 +16,6 @@ import com.obstacleavoid.entity.Player;
 import com.obstacleavoid.util.GdxUtils;
 import com.obstacleavoid.util.ViewportUtils;
 import com.obstacleavoid.util.debug.DebugCameraController;
-
-import javax.swing.text.PlainDocument;
 
 public class GameRenderer implements Disposable {
 
@@ -38,10 +32,9 @@ public class GameRenderer implements Disposable {
     private DebugCameraController debugCameraController;
     private final GameController gameController;
     private final AssetManager assetManager;
-    private Texture playerTexture;
-    private Texture  obstacleTexture;
-    private Texture backgroundTexture;
-
+    private TextureRegion playerRegion;
+    private TextureRegion obstacleRegion;
+    private TextureRegion backgroundRegion;
 
 
     //constructor
@@ -69,36 +62,38 @@ public class GameRenderer implements Disposable {
         debugCameraController.setStartPosition(GameConfig.WORLD_CENTER_X, GameConfig.WORLD_CENTER_Y);
 
         //giving things a texture
-        playerTexture = assetManager.get(AssetDescriptors.PLAYER);
-        obstacleTexture = assetManager.get(AssetDescriptors.OBSTACLE);
-        backgroundTexture = assetManager.get(AssetDescriptors.BACKGROUND);
+        TextureAtlas gamePlayAtlas = assetManager.get(AssetDescriptors.GAME_PLAY);
+
+        playerRegion = gamePlayAtlas.findRegion(RegionNames.PLAYER);
+        obstacleRegion = gamePlayAtlas.findRegion(RegionNames.OBSTACLE);
+        backgroundRegion = gamePlayAtlas.findRegion(RegionNames.BACKGROUND);
     }
 
     //public methods
 
-    public void render(float delta){
+    public void render(float delta) {
+        batch.totalRenderCalls = 0;
 
+        //not wrapped inside 'alive' so I retain control of the camera
         debugCameraController.handleDebugInput(delta);
         debugCameraController.applyTo(camera);
-
 
 
         // clear screen
         GdxUtils.clearScreen();
 
-        
+
         //render gameplay
         renderGamePlay();
-        
+
         //render ui/hud
         renderUi();
 
 
         //render debug graphics
         renderDebug();
+        System.out.println("total render calls = " + batch.totalRenderCalls);
     }
-
-
 
 
     @Override
@@ -124,15 +119,15 @@ public class GameRenderer implements Disposable {
 
         //draw background
         Background background = gameController.getBackground();
-        batch.draw(backgroundTexture, background.getX(),background.getY(), background.getWidth(), background.getHeight());
+        batch.draw(backgroundRegion, background.getX(), background.getY(), background.getWidth(), background.getHeight());
 
         //draw player
         Player player = gameController.getPlayer();
-        batch.draw(playerTexture, player.getX(), player.getY(), player.getWidth(), player.getHeight());
+        batch.draw(playerRegion, player.getX(), player.getY(), player.getWidth(), player.getHeight());
 
         //draw obstacles
-        for (Obstacle obstacle: gameController.getObstacles()) {
-            batch.draw(obstacleTexture, obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight());
+        for (Obstacle obstacle : gameController.getObstacles()) {
+            batch.draw(obstacleRegion, obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight());
 
 
         }

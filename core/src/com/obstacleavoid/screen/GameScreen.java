@@ -2,7 +2,6 @@ package com.obstacleavoid.screen;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.obstacleavoid.ObstacleAvoidGame;
 import com.obstacleavoid.assets.AssetDescriptors;
 
@@ -23,9 +22,8 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         assetManager.load(AssetDescriptors.FONT);
-        assetManager.load(AssetDescriptors.BACKGROUND);
-        assetManager.load(AssetDescriptors.OBSTACLE);
-        assetManager.load(AssetDescriptors.PLAYER);
+        assetManager.load(AssetDescriptors.GAME_PLAY);
+
 
         assetManager.finishLoading();
 
