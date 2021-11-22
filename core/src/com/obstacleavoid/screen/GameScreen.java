@@ -25,6 +25,7 @@ public class GameScreen implements Screen {
         assetManager.load(AssetDescriptors.GAME_PLAY);
 
 
+
         assetManager.finishLoading();
 
         controller = new GameController();
