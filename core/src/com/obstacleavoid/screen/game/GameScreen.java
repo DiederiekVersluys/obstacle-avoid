@@ -1,4 +1,4 @@
-package com.obstacleavoid.screen;
+package com.obstacleavoid.screen.game;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
@@ -21,17 +21,14 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        assetManager.load(AssetDescriptors.FONT);
-        assetManager.load(AssetDescriptors.GAME_PLAY);
 
-
-
-        assetManager.finishLoading();
 
         controller = new GameController();
         renderer = new GameRenderer(assetManager, controller);
 
     }
+
+
 
     @Override
     public void render(float delta) {
