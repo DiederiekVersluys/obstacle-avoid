@@ -10,6 +10,7 @@ import com.obstacleavoid.ObstacleAvoidGame;
 import com.obstacleavoid.assets.AssetDescriptors;
 import com.obstacleavoid.config.GameConfig;
 import com.obstacleavoid.screen.game.GameScreen;
+import com.obstacleavoid.screen.menu.MenuScreen;
 import com.obstacleavoid.util.GdxUtils;
 
 public class LoadingScreen extends ScreenAdapter {
@@ -47,6 +48,7 @@ public class LoadingScreen extends ScreenAdapter {
 
         assetManager.load(AssetDescriptors.FONT);
         assetManager.load(AssetDescriptors.GAME_PLAY);
+        assetManager.load(AssetDescriptors.UI);
 
 
     }
@@ -72,7 +74,7 @@ public class LoadingScreen extends ScreenAdapter {
         renderer.end();
 
         if (changeScreen) {
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new MenuScreen(game));
         }
 
     }
@@ -103,7 +105,7 @@ public class LoadingScreen extends ScreenAdapter {
 
     private void update(float delta) {
 
-        waitMillis(400);
+
         //progress is always between 0 and 1
         progress = assetManager.getProgress();
 
