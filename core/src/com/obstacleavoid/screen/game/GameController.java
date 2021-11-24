@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
+import com.obstacleavoid.common.GameManager;
 import com.obstacleavoid.config.DifficultyLevel;
 import com.obstacleavoid.config.GameConfig;
 import com.obstacleavoid.entity.Background;
@@ -72,6 +73,7 @@ public class GameController {
 
             if (isGameOver()) {
                 log.debug("Game over man! Game over!");
+                GameManager.INSTANCE.updateHighScore(score);
             }
             else{
                 restart();

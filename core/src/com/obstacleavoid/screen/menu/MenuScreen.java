@@ -18,6 +18,7 @@ import com.obstacleavoid.ObstacleAvoidGame;
 import com.obstacleavoid.assets.AssetDescriptors;
 import com.obstacleavoid.assets.RegionNames;
 import com.obstacleavoid.config.GameConfig;
+import com.obstacleavoid.screen.game.GameScreen;
 import com.obstacleavoid.util.GdxUtils;
 
 public class MenuScreen extends ScreenAdapter {
@@ -128,10 +129,12 @@ public class MenuScreen extends ScreenAdapter {
 
     private void play() {
         log.debug("play()");
+        game.setScreen(new GameScreen(game));
     }
 
     private void showHighScore() {
         log.debug("showHighScore()");
+        game.setScreen(new HighScoreScreen(game));
     }
 
     private void showOptions() {
