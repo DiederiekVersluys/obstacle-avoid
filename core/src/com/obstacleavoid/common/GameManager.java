@@ -3,19 +3,25 @@ package com.obstacleavoid.common;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.obstacleavoid.ObstacleAvoidGame;
+import com.obstacleavoid.config.DifficultyLevel;
 
 public class GameManager {
 
     public static final GameManager INSTANCE = new GameManager();
 
     public static final String HIGH_SCORE_KEY = "highscore";
+    private static final String DIFFICULTY_KEY = "difficulty";
 
     private int highscore;
-    private final Preferences PREFS;
+    private  Preferences PREFS;
+    private  DifficultyLevel difficultyLevel = DifficultyLevel.MEDIUM;
 
     private GameManager(){
         PREFS = Gdx.app.getPreferences(ObstacleAvoidGame.class.getSimpleName());
         highscore = PREFS.getInteger(HIGH_SCORE_KEY, 0);
+        String difficultyName = PREFS.getString(DIFFICULTY_KEY, DifficultyLevel.MEDIUM.name());
+        difficultyLevel = DifficultyLevel.valueOf(difficultyName);
+
 
     }
 
@@ -30,6 +36,19 @@ public class GameManager {
 
     public String getHighScoreString(){
         return String.valueOf(highscore);
+    }
+
+    public DifficultyLevel getDifficultyLevel(){
+        return difficultyLevel;
+    }
+
+    public void updateDifficultyLevel(DifficultyLevel newDifficultyLevel){
+        if (difficultyLevel == newDifficultyLevel){
+            return;
+        }
+        difficultyLevel = newDifficultyLevel;
+        PREFS.putString(DIFFICULTY_KEY, difficultyLevel.name());
+        PREFS.flush();
     }
 
 }

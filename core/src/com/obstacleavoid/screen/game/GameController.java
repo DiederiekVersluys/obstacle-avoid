@@ -25,7 +25,6 @@ public class GameController {
     private float scoreTimer;
     private int score;
     private int displayScore;
-    private DifficultyLevel difficultyLevel = DifficultyLevel.HARD;
     private int lives = GameConfig.LIVES_START;
     private Pool<Obstacle> obstaclePool;
     private final float startPlayerX = GameConfig.WORLD_WIDTH / 2f - GameConfig.PLAYER_SIZE/2;
@@ -90,7 +89,7 @@ public class GameController {
 
     //private methods
 
-    private boolean isGameOver() {
+    public boolean isGameOver() {
         return lives <= 0;
     }
 
@@ -151,6 +150,7 @@ public class GameController {
             float obstacleY = GameConfig.WORLD_HEIGHT;
 
             Obstacle obstacle = obstaclePool.obtain();
+            DifficultyLevel difficultyLevel = GameManager.INSTANCE.getDifficultyLevel();
             obstacle.setYSpeed(difficultyLevel.getObstacleSpeed());
             obstacle.setPosition(obstacleX, obstacleY);
             obstacles.add(obstacle);
