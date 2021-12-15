@@ -50,9 +50,9 @@ public class OptionsScreen extends MenuScreenBase {
 
         Label label = new Label("DIFFICULTY", uiSkin);
 
-        easy = new CheckBox(DifficultyLevel.EASY.name(), uiSkin);
-        medium = new CheckBox(DifficultyLevel.MEDIUM.name(), uiSkin);
-        hard = new CheckBox(DifficultyLevel.HARD.name(), uiSkin);
+        easy = checkBox(DifficultyLevel.EASY.name(), uiSkin);
+        medium = checkBox(DifficultyLevel.MEDIUM.name(), uiSkin);
+        hard = checkBox(DifficultyLevel.HARD.name(), uiSkin);
 
         checkBoxButtonGroup = new ButtonGroup<>(easy, medium, hard);
 
@@ -100,6 +100,14 @@ public class OptionsScreen extends MenuScreenBase {
 
 
         return table;
+    }
+
+    private static CheckBox checkBox(String text, Skin skin) {
+        CheckBox checkBox = new CheckBox(text, skin);
+        checkBox.left();
+        checkBox.padLeft(10);
+        checkBox.getLabelCell().pad(8);
+        return checkBox;
     }
 
     private void difficultyChanged() {

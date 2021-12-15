@@ -24,7 +24,7 @@ public class GameScreen implements Screen {
     public void show() {
 
 
-        controller = new GameController();
+        controller = new GameController(game);
         renderer = new GameRenderer(game.getBatch(), assetManager, controller);
 
     }
