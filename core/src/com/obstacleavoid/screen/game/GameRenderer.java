@@ -166,7 +166,7 @@ public class GameRenderer implements Disposable {
         drawDebug();
         renderer.end();
 
-        ViewportUtils.drawGrid(viewport, renderer);
+
     }
 
     private void drawDebug() {
