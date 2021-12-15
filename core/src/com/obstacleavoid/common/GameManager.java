@@ -13,10 +13,10 @@ public class GameManager {
     private static final String DIFFICULTY_KEY = "difficulty";
 
     private int highscore;
-    private  Preferences PREFS;
-    private  DifficultyLevel difficultyLevel = DifficultyLevel.MEDIUM;
+    private Preferences PREFS;
+    private DifficultyLevel difficultyLevel = DifficultyLevel.MEDIUM;
 
-    private GameManager(){
+    private GameManager() {
         PREFS = Gdx.app.getPreferences(ObstacleAvoidGame.class.getSimpleName());
         highscore = PREFS.getInteger(HIGH_SCORE_KEY, 0);
         String difficultyName = PREFS.getString(DIFFICULTY_KEY, DifficultyLevel.MEDIUM.name());
@@ -25,8 +25,8 @@ public class GameManager {
 
     }
 
-    public void updateHighScore(int score){
-        if(score<highscore){
+    public void updateHighScore(int score) {
+        if (score < highscore) {
             return;
         }
         highscore = score;
@@ -34,16 +34,16 @@ public class GameManager {
         PREFS.flush();
     }
 
-    public String getHighScoreString(){
+    public String getHighScoreString() {
         return String.valueOf(highscore);
     }
 
-    public DifficultyLevel getDifficultyLevel(){
+    public DifficultyLevel getDifficultyLevel() {
         return difficultyLevel;
     }
 
-    public void updateDifficultyLevel(DifficultyLevel newDifficultyLevel){
-        if (difficultyLevel == newDifficultyLevel){
+    public void updateDifficultyLevel(DifficultyLevel newDifficultyLevel) {
+        if (difficultyLevel == newDifficultyLevel) {
             return;
         }
         difficultyLevel = newDifficultyLevel;

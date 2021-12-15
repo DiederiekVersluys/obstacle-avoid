@@ -29,6 +29,7 @@ public abstract class MenuScreenBase extends ScreenAdapter {
         viewport = new FitViewport(GameConfig.HUD_WIDTH, GameConfig.HUD_HEIGHT);
         stage = new Stage(viewport, game.getBatch());
 
+
         Gdx.input.setInputProcessor(stage);
 
         stage.addActor(createUi());
