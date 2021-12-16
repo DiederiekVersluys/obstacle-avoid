@@ -17,7 +17,7 @@ public class ObstacleAvoidGame extends Game {
 
 	private AssetManager assetManager;
 	private SpriteBatch batch;
-	private Music music;
+
 
 
 	@Override
@@ -28,10 +28,7 @@ public class ObstacleAvoidGame extends Game {
 		assetManager.getLogger().setLevel(Logger.DEBUG);
 
 		batch = new SpriteBatch();
-		music = Gdx.audio.newMusic(Gdx.files.internal(AssetPaths.MUSIC_SOUND));
-		music.setLooping(true);
-		music.setVolume(1);
-		music.play();
+//
 
 		setScreen(new LoadingScreen(this));
 	}

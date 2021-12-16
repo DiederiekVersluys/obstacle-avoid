@@ -1,6 +1,8 @@
 package com.obstacleavoid.screen.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
@@ -9,6 +11,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import com.obstacleavoid.ObstacleAvoidGame;
 import com.obstacleavoid.assets.AssetDescriptors;
+import com.obstacleavoid.assets.AssetPaths;
 import com.obstacleavoid.common.GameManager;
 import com.obstacleavoid.config.DifficultyLevel;
 import com.obstacleavoid.config.GameConfig;
@@ -32,6 +35,7 @@ public class GameController {
     private int lives = GameConfig.LIVES_START;
     private Pool<Obstacle> obstaclePool;
     private Sound hit;
+    private Music music;
 
     private final ObstacleAvoidGame game;
     private final AssetManager assetManager;
@@ -65,7 +69,9 @@ public class GameController {
         background.setPosition(0,0);
         background.setSize(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT);
 
+        //sounds
         hit = assetManager.get(AssetDescriptors.HIT_SOUND);
+        music = Gdx.audio.newMusic(Gdx.files.internal(AssetPaths.MUSIC_SOUND));
     }
 
     //public methods
@@ -75,6 +81,8 @@ public class GameController {
 
             return;
         }
+        music.setLooping(true);
+        music.play();
         updatePlayer(delta);
         updateObstacles(delta);
         updateScore(delta);
@@ -84,6 +92,7 @@ public class GameController {
             lives--;
 
             if (isGameOver()) {
+                music.stop();
                 log.debug("Game over man! Game over!");
                 GameManager.INSTANCE.updateHighScore(score);
             }
